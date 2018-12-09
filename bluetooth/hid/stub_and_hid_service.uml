@@ -1,0 +1,5 @@
+@startuml
+
+BluetoothHidDeviceBinder --|> IBluetoothHidDevice.Stub
+
+@enduml

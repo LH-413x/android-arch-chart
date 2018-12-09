@@ -1,0 +1,10 @@
+@startuml
+
+BluetoothHidDeviceBinder.replyReport -> HidDeviceService.replyReport
+HidDeviceService.replyReport -> HidDeviceNativeInterface.replyReport
+HidDeviceNativeInterface.replyReport -> replyReportNative
+replyReportNative -> send_report
+send_report -> BTA_HdSendReport
+BTA_HdSendReport -> bta_sys_sendmsg
+
+@enduml
