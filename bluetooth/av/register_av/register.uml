@@ -2,10 +2,12 @@
 
 (btif_av_sink_execute_service)-->(BTA_AvEnable)
 (bta_sys_event)-->(bta_sys_cb.reg) #Blue
-(BTA_AvEnable)-->(bta_sys_cb.reg) #Blue
+(BTA_AvEnable)->(bta_sys_cb.reg) #Blue
 
 (BTA_AvEnable)-->(bta_av_reg)
 (BTA_AvEnable)-->(bta_sys_sendmsg) : p_cback as packet send to bluetooth system\n by bta_sys_sendmsg
+(bta_sys_sendmsg)-->(bta_sys_event)
+
 (bta_av_reg)-->(bta_av_hdl_event) #Blue
 (bta_av_hdl_event)-->(bta_av_sm_execute)
 (bta_av_hdl_event)-->(bta_av_ssm_execute)
@@ -19,4 +21,15 @@ are BTA_ID_AV and bta_av_reg,as below
   bta_sys_cb.is_reg[id] = true;
 
 end note
+
+note right of (bta_av_reg)
+static const tBTA_SYS_REG bta_av_reg = 
+{bta_av_hdl_event, BTA_AvDisable}
+end note
+
+note right of (bta_sys_event)
+freebuf = (*bta_sys_cb.reg[id]->evt_hdlr)(p_msg);
+so I think it's bta_av_hdl_event deal with it
+end note
+
 @enduml
