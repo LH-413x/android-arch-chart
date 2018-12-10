@@ -1,0 +1,9 @@
+@startuml
+
+title clccResponse
+
+BluetoothHeadsetBinder -> HeadsetService : index, direction, status, \nmode, mpty, number,type
+HeadsetService -> stateMachine : by sendMessage \nindex, direction, status, \nmode, mpty, number,type
+HeadsetService -> HeadsetService : doForEachConnectedStateMachine
+
+@enduml
