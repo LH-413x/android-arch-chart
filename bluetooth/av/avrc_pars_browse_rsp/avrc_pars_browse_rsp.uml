@@ -1,0 +1,11 @@
+@startuml
+
+title: avrc_pars_browse_rsp call stack
+
+btif_rc_handler -> handle_avk_rc_metamsg_rsp
+
+handle_avk_rc_metamsg_rsp -> AVRC_Ctrl_ParsResponse
+
+AVRC_Ctrl_ParsResponse -> avrc_pars_browse_rsp
+
+@enduml

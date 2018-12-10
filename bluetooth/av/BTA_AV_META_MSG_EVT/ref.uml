@@ -1,0 +1,12 @@
+@startuml
+
+(bta_av_reg)-> (bta_av_hdl_event)
+(bta_av_rc_closed) -> (bta_av_sm_execute)
+(bta_av_hdl_event) --> (bta_av_sm_execute)
+(bta_av_sm_execute) --> (bta_av_action)
+(bta_av_action) --> (bta_av_rc_msg) #Blue
+(bta_av_rc_msg) --> (bta_av_proc_meta_cmd) : evt = bta_av_proc_meta_cmd
+(bta_av_proc_meta_cmd) --> (evt=BTA_AV_META_MSG_EVT) #Blue
+(bta_av_rc_msg) --> (evt=BTA_AV_META_MSG_EVT) : p_data->rc_msg.opcode == AVRC_OP_BROWSE #Blue
+
+@enduml
