@@ -1,0 +1,8 @@
+@startuml
+BluetoothHeadsetBinder -|> Stub
+
+BluetoothHeadsetBinder : phoneStateChanged()
+BluetoothHeadsetBinder : clccResponse()
+BluetoothHeadsetBinder : sendVendorSpecificResultCode()
+
+@enduml

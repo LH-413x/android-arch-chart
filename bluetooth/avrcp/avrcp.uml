@@ -1,0 +1,3 @@
+@startuml
+BrowsedMediaPlayer <--* Avrcp
+@enduml

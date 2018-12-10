@@ -1,0 +1,5 @@
+@startuml
+BluetoothHeadsetBinder->HeadsetService
+HeadsetService->stateMachine
+note right: stateMachine check command,\nno check on arg
+@enduml
