@@ -1,4 +1,6 @@
 @startuml
+(btif_av_sink_execute_service)-->(bta_av_sink_callback) :register
+(bta_av_sink_callback)-->(btif_av_handle_bta_av_event)
 
 (btif_av_source_execute_service) --> (bta_av_source_callback)
 (bta_av_source_callback)-->(btif_av_handle_bta_av_event)
@@ -12,14 +14,21 @@
 
 (btif_av_handle_event)->(ProcessEvent)
 
-note right of (btif_av_handle_bta_av_event)
+note left of (btif_av_handle_bta_av_event)
 reference BTA_AV_META_MSG_EVT
 end note
+
 
 note right of (btif_av_source_execute_service)
 call BTA_AvEnable to
 register bta_av_source_callback
 end note 
+
+note left of (btif_av_sink_execute_service)
+call BTA_AvEnable to
+register bta_av_sink_callback
+end note 
+
 
 note right of (ProcessEvent)
 StateIdle::ProcessEvent

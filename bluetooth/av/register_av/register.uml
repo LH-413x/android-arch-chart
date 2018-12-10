@@ -1,0 +1,22 @@
+@startuml
+
+(btif_av_sink_execute_service)-->(BTA_AvEnable)
+(bta_sys_event)-->(bta_sys_cb.reg) #Blue
+(BTA_AvEnable)-->(bta_sys_cb.reg) #Blue
+
+(BTA_AvEnable)-->(bta_av_reg)
+(BTA_AvEnable)-->(bta_sys_sendmsg) : p_cback as packet send to bluetooth system\n by bta_sys_sendmsg
+(bta_av_reg)-->(bta_av_hdl_event) #Blue
+(bta_av_hdl_event)-->(bta_av_sm_execute)
+(bta_av_hdl_event)-->(bta_av_ssm_execute)
+
+note right of (BTA_AvEnable)
+BTA_AvEnable call bta_sys_register
+to register bta_av_reg, regist args 
+are BTA_ID_AV and bta_av_reg,as below
+
+  bta_sys_cb.reg[id] = (tBTA_SYS_REG*)p_reg;
+  bta_sys_cb.is_reg[id] = true;
+
+end note
+@enduml
