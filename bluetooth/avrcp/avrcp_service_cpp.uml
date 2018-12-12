@@ -1,0 +1,61 @@
+@startuml
+
+class ServiceInterfaceImpl{
+    {method}void Init(MediaInterface* media_interface, VolumeInterface* volume_interface) override;
+    {method}bool ConnectDevice(const RawAddress& bdaddr) override;
+    {method}bool DisconnectDevice(const RawAddress& bdaddr) override;
+    {method}bool Cleanup() override;
+    
+    {field}std::mutex service_interface_lock_;
+}
+
+class AvrcpService{
+  {method}void Init(MediaInterface* media_interface, VolumeInterface* volume_interface);
+  {method}void Cleanup();
+  {method}void ConnectDevice(const RawAddress& bdaddr);
+  {method}void DisconnectDevice(const RawAddress& bdaddr);
+  {method}void SendMediaUpdate(bool track_changed, bool play_state,bool queue) override;
+  {method}void SendFolderUpdate(bool available_players, bool addressed_player,bool queue) override;
+  {method}void SendActiveDeviceChanged(const RawAddress& address) override;
+  {method}void DeviceCallback(std::shared_ptr<Device> device);
+
+  {field}static AvrcpService* instance_;
+  {field}static ServiceInterfaceImpl* service_interface_;
+  {field}MediaInterface* media_interface_ = nullptr;
+  {field}VolumeInterface* volume_interface_ = nullptr;
+  {field}ConnectionHandler* connection_handler_;
+}
+
+class MediaCallbacks {
+  {method}virtual void SendMediaUpdate(bool track_changed, bool play_state, bool queue);
+  {method}virtual void SendFolderUpdate(bool available_players, bool addressed_players, bool uids_changed);
+  {method}virtual void SendActiveDeviceChanged(const RawAddress& address);
+  {method}virtual ~MediaCallbacks() = default;
+}
+
+class ServiceInterface {
+  {method}virtual void Init(MediaInterface* mediaInterface, VolumeInterface* volumeInterface) = 0;
+  {method}virtual bool ConnectDevice(const RawAddress& bdaddr) = 0;
+  {method}virtual bool DisconnectDevice(const RawAddress& bdaddr) = 0;
+  {method}virtual bool Cleanup() = 0;
+  {method}virtual ~ServiceInterface() = default;
+}
+
+AvrcpService *--o VolumeInterfaceWrapper
+AvrcpService *--o MediaInterfaceWrapper
+AvrcpService *--o ServiceInterfaceImpl
+
+MediaInterface <|-- MediaInterfaceWrapper
+VolumeInterface <|-- VolumeInterfaceWrapper
+
+MediaCallbacks <|-- AvrcpService
+ServiceInterface <|-- ServiceInterfaceImpl
+
+VendorPacketBuilder <|-- PlayItemResponseBuilder
+VendorPacketBuilder <|-- RejectBuilder
+
+note right of VendorPacketBuilder
+Device use derived class of VendorPacketBuilder
+end note
+
+@enduml

@@ -30,6 +30,12 @@ end note
 note right of (bta_sys_event)
 freebuf = (*bta_sys_cb.reg[id]->evt_hdlr)(p_msg);
 so I think it's bta_av_hdl_event deal with it
+
+after debug with gdb, we can see it from gdb
+
+p bta_sys_cb.reg[18]
+$2 = (tBTA_SYS_REG *) 0x74bb676d28 <bta_av_reg>
+
 end note
 
 @enduml

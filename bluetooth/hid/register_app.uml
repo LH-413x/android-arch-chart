@@ -1,0 +1,13 @@
+@startuml
+
+(BluetoothHidDeviceBinder.registerApp) --> (HidDeviceService.registerApp)
+
+(HidDeviceService.registerApp) --> (HidDeviceNativeInterface.registerApp)
+
+(HidDeviceNativeInterface.registerApp)  --> (registerAppNative)
+
+(registerAppNative) --> (bthdInterface)
+
+(bthdInterface) --> (register_app) #Blue
+
+@enduml

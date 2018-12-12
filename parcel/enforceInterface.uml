@@ -1,0 +1,6 @@
+@startuml
+
+(enforceInterface) -> (nativeEnforceInterface)
+(nativeEnforceInterface)->(android_os_Parcel_enforceInterface)
+(nativeEnforceInterface)-->(Parcel::enforceInterface)
+@enduml

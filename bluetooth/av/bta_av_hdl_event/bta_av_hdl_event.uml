@@ -1,0 +1,21 @@
+@startuml
+(bta_av_hdl_event)-->(bta_av_sm_execute)
+(bta_av_sm_execute)-->(bta_av_action) #Blue
+
+note right of (bta_av_sm_execute)
+bta_av_action is function pointer array
+const tBTA_AV_ACTION bta_av_action[] = {
+    bta_av_disable,
+    bta_av_rc_opened,
+    bta_av_rc_remote_cmd,
+    bta_av_rc_vendor_cmd,
+    bta_av_rc_vendor_rsp,
+    bta_av_rc_free_rsp,
+    bta_av_rc_free_browse_msg,
+    bta_av_rc_meta_rsp,
+    bta_av_rc_msg,
+    bta_av_rc_close,
+};
+end note
+
+@enduml

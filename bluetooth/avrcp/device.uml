@@ -1,0 +1,17 @@
+@startuml
+
+class Device {
+  {method}void RegisterInterfaces(MediaInterface* interface,A2dpInterface* a2dp_interface,VolumeInterface* volume_interface);
+  {method}virtual void SendMediaUpdate(bool metadata, bool play_status, bool queue);
+  {method}virtual void SendFolderUpdate(bool available_player, bool addressed_player,bool uids);
+  {method}void MessageReceived(uint8_t label, std::shared_ptr<Packet> pkt);
+  {method}void BrowseMessageReceived(uint8_t label, std::shared_ptr<BrowsePacket> pkt);
+  {method}void VendorPacketHandler(uint8_t label, std::shared_ptr<VendorPacket> pkt);
+  {field}MediaInterface* media_interface_ = nullptr;
+  {field}A2dpInterface* a2dp_interface_ = nullptr;
+  {field}VolumeInterface* volume_interface_ = nullptr;
+  {field}MediaIdMap vfs_ids_
+  {field}MediaIdMap now_playing_ids_
+}
+
+@enduml

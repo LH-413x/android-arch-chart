@@ -2,7 +2,7 @@
 (btif_av_sink_execute_service)-->(bta_av_sink_callback) :register
 (bta_av_sink_callback)-->(btif_av_handle_bta_av_event)
 
-(btif_av_source_execute_service) --> (bta_av_source_callback)
+(btif_av_source_execute_service) --> (bta_av_source_callback) :register
 (bta_av_source_callback)-->(btif_av_handle_bta_av_event)
 
 (btif_av_sink_dispatch_sm_event)--->(btif_av_handle_event) : do in thread
