@@ -1,0 +1,8 @@
+@startuml
+class A2dpCodecConfig{
+  {field}private A2dpNativeInterface mA2dpNativeInterface;
+  {method}void setCodecConfigPreference(BluetoothDevice device,BluetoothCodecConfig codecConfig)
+  {method}void enableOptionalCodecs(BluetoothDevice device)
+  {method}void disableOptionalCodecs(BluetoothDevice device)
+}
+@enduml

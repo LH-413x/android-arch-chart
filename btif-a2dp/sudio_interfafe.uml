@@ -1,0 +1,26 @@
+@startuml
+
+:bluetoothInterface;
+-[#green,dashed]->
+:get_profile_interface;
+:btif_av_get_src_interface;
+note right
+return bt_av_src_interface
+end note
+-[#blue,dotted]->
+:bt_av_src_interface;
+note right 
+bt_av_src_interface contain 
+codec_config_src func pointer 
+end note
+-[#green,dashed]->
+:codec_config_src;
+note right 
+do in thread
+end note
+:BtifAvSource.UpdateCodecConfig;
+:btif_a2dp_source_start_session_delayed;
+note right
+do in thread
+end note
+@enduml

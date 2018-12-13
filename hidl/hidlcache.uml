@@ -1,0 +1,45 @@
+@startuml
+
+class IMemoryDecorator{
+  {field} sp<IMemory> mHeap
+  {method} IMemoryDecorator
+  {method} update
+  {method} read
+  {method} updateRange
+  {method} readRange
+  {method} commit
+  {method} getPointer
+  {method} getSize
+}
+
+class IMemoryCacheable{
+  {method} overwrite IMemoryCacheable
+  {field} sp<IMemoryToken> mKey
+}
+
+class IMemoryBlock{
+  {method}readRange
+  {method}updateRange
+  {method}getSize
+  {method}getPointer
+  {method}IMemoryBlock
+
+  {field}uint64_t mSize;
+  {field}uint64_t mOffset;
+  {field}uint64_t mHeapSize;
+}
+
+class HidlMemoryCache{
+  {method}virtual sp<IMemory> map
+  {method}static sp<HidlMemoryCache> getInstance
+  {method}HidlMemoryCache
+  {method}virtual sp<IMemory> fillLocked
+}
+
+HidlMemoryCache -|> HidlCache
+HidlCache -|> RefBase
+
+IMemoryCacheable --|> IMemoryDecorator
+IMemoryBlock --|> IMemoryDecorator
+IMemoryDecorator -|> IMemory
+@enduml
